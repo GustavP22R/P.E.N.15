@@ -189,6 +189,7 @@ function draw() {
     bully: -bullets[bullets.length-1].x,
     bullz: bullets[bullets.length-1].z
   }
+  console.log(data)
   socket.emit('mouse', data)
     //multiplayer
     push()
