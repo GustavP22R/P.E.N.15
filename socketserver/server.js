@@ -1,11 +1,13 @@
 var express = require('express');
 
+var hostID = 3000
+
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(hostID);
 
 app.use(express.static('public'));
 
-console.log("it works like a charm");
+console.log("hosting server on http://localhost:" + String(hostID) + "/");
 
 var socket = require('socket.io');
 
