@@ -58,7 +58,7 @@ function drawFrontEnd() {
     text("Send message\nbelow", inputBoxX + inputBoxW / 4, inputBoxY + 40);
 
     fill(131, 163, 163);
-    rect(inputBoxX - 20, inputBoxY * 13.28, inputBoxW + 30, inputBoxH, 30);
+    rect(inputBoxX - 20, inputBoxY * 13.2, inputBoxW + 30, inputBoxH, 30);
 
     // Dynamic Message Boxes
     let columnCount = 4;
