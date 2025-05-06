@@ -49,16 +49,16 @@ function drawFrontEnd() {
     let inputBoxH = windowHeight * 0.35;
 
     fill(131, 163, 163);
-    rect(inputBoxX * windowWidth * 0.00052, inputBoxY, inputBoxW * 1.12, inputBoxH, 30);
+    rect(inputBoxX * 0.7, inputBoxY, inputBoxW * 1.12, inputBoxH, 30);
 
     fill(255);
-    textSize(16 * windowWidth * 0.0008);
+    textSize(16 * windowWidth/ 1300);
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
-    text("Send message\nbelow", inputBoxX + inputBoxW / 4, inputBoxY + 40);
+    text("Send message\nbelow", inputBoxX + inputBoxW  / 4, inputBoxY + windowHeight * 0.07);
 
     fill(131, 163, 163);
-    rect(inputBoxX * windowWidth * 0.00052, inputBoxY * 10.5, inputBoxW * 1.12, inputBoxH, 30);
+    rect(inputBoxX * 0.7, inputBoxY * 10.5, inputBoxW * 1.12, inputBoxH, 30);
 
     // Dynamic Message Boxes
     let columnCount = 4;
@@ -70,7 +70,7 @@ function drawFrontEnd() {
     let labelTop = ["First message sent", "Error Control Code", "Encrypted", "Final message sent"];
     let labelBottom = ["First message received", "Error Control Code", "Encrypted", "Final message received"];
 
-    textSize(16 * windowWidth * 0.0008);
+    textSize(16  * windowWidth/ 1300);
     textStyle(NORMAL);
 
     for (let i = 0; i < columnCount; i++) {
@@ -88,7 +88,7 @@ function drawFrontEnd() {
         
         textAlign(CENTER, CENTER);
         fill(255);
-        textSize(16);
+        textSize(16 * windowWidth/ 1300);
         textStyle(BOLD);
         textAlign(CENTER, CENTER);
         text(labelTop[i], x + boxW / 2, yTop + windowHeight * 0.06);
@@ -101,7 +101,7 @@ function drawFrontEnd() {
         rect(x + 10 * windowWidth * 0.0009, yBottom + windowHeight * 0.12, boxW * 0.88,  boxH * 0.6);
 
         fill(255);
-        textSize(16);
+        textSize(16 * windowWidth/ 1300 );
         textStyle(BOLD);
         textAlign(CENTER, CENTER);
         text(labelBottom[i], x + boxW / 2, yBottom + windowHeight * 0.06);
