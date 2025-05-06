@@ -15,10 +15,12 @@ function setupFrontEnd() {
     //Text size
     let fontSize = windowWidth * 0.010;
 
+    //Input area
     messageInput = createElement('textarea');
     messageInput.attribute('placeholder', 'Message here');
     messageInput.position(inputX, inputY);
     messageInput.size(inputWidth, inputHeight);
+
 
     let buttonWidth = 120 * windowWidth * 0.0007;
     let buttonHeight = 25 * windowHeight * 0.0015;
@@ -26,12 +28,14 @@ function setupFrontEnd() {
     let xSend = inputX * 3.2;
     let ySend = inputY - inputHeight * 0.5;
 
+    //Send button
     messageSend = createButton("Send message");
     messageSend.position(xSend, ySend); 
     messageSend.size(buttonWidth, buttonHeight);
     messageSend.style('font-size', fontSize + 'px');
     messageSend.mousePressed(sendData);
 
+    //New message button
     NewMessage = createButton("New Message");
     NewMessage.position(xSend, ySend + buttonHeight + 5 * windowHeight / 1000);
     NewMessage.size(buttonWidth, buttonHeight);
@@ -61,6 +65,7 @@ function drawFrontEnd() {
     let inputBoxW = windowWidth * 0.2;
     let inputBoxH = windowHeight * 0.35;
 
+    //Box top left
     fill(131, 163, 163);
     rect(inputBoxX * 0.7, inputBoxY, inputBoxW * 1.12, inputBoxH, 30);
 
@@ -70,8 +75,21 @@ function drawFrontEnd() {
     textAlign(CENTER, CENTER);
     text("Send message\nbelow", inputBoxX + inputBoxW  / 4, inputBoxY + windowHeight * 0.07);
 
+    //Box bottom left
     fill(131, 163, 163);
     rect(inputBoxX * 0.7, inputBoxY * 10.5, inputBoxW * 1.12, inputBoxH, 30);
+
+    //Title bottem left
+    fill(255);
+    text("Practical information", inputBoxX + inputBoxW  / 2.1, inputBoxY + windowHeight *0.54);
+
+        //Bottom left text
+        textSize(12 * windowWidth/ 1300);
+
+        informationText = "This program showcases how cryptition\nworks utilising RSA and how Error Control\nCoding works using Hamming Code\n\nThe program allows you to send your own\nmessage and follow the progress of the \nalgorithm"
+
+        textAlign(LEFT);
+        text(informationText, inputBoxX + inputBoxW  / 10000, inputBoxY + windowHeight *0.65);
 
     // Dynamic Message Boxes
     let columnCount = 4;
@@ -98,7 +116,6 @@ function drawFrontEnd() {
         fill(255);
         rect(x + 10 * windowWidth * 0.0009, yTop + windowHeight * 0.12, boxW * 0.88, boxH * 0.6);
 
-        
         textAlign(CENTER, CENTER);
         fill(255);
         textSize(16 * windowWidth/ 1300);
