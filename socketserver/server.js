@@ -19,9 +19,14 @@ function newConnection(socket){
     console.log('new connection: ' + socket.id);
 
     socket.on('mouse' , mouseMsg);
+    socket.on('key', keyExchangeMsg)
 
     function mouseMsg(data){
         socket.broadcast.emit('mouse' , data);
         console.log(data);
+    }
+    function keyExchangeMsg(publicK){
+        socket.broadcast.emit('key' , publicK);
+        console.log(publicK);
     }
 }

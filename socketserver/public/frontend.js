@@ -33,7 +33,7 @@ function setupFrontEnd() {
     messageSend.position(xSend, ySend); 
     messageSend.size(buttonWidth, buttonHeight);
     messageSend.style('font-size', fontSize + 'px');
-    messageSend.mousePressed(sendData);
+    messageSend.mousePressed(emitData);
 
     //New message button
     NewMessage = createButton("New Message");
