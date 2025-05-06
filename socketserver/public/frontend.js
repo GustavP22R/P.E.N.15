@@ -1,8 +1,19 @@
+let messageInput, messageSend, NewMessage;
+
 function setupFrontEnd() {
+    // Remove previous elements if they exist
+    if (messageInput) messageInput.remove();
+    if (messageSend) messageSend.remove();
+    if (NewMessage) NewMessage.remove();
+
+    // Recreate elements
     let inputWidth = windowWidth * 0.2;
     let inputHeight = windowHeight * 0.2;
     let inputX = windowWidth * 0.05;
     let inputY = windowHeight * 0.18;
+
+    //Text size
+    let fontSize = windowWidth * 0.010;
 
     messageInput = createElement('textarea');
     messageInput.attribute('placeholder', 'Message here');
@@ -12,17 +23,19 @@ function setupFrontEnd() {
     let buttonWidth = 120 * windowWidth * 0.0007;
     let buttonHeight = 25 * windowHeight * 0.0015;
 
-    xSend = inputX * 3.2; // same as input X
-    ySend = inputY - inputHeight * 0.5;
+    let xSend = inputX * 3.2;
+    let ySend = inputY - inputHeight * 0.5;
 
     messageSend = createButton("Send message");
-    messageSend.position(xSend, ySend);
+    messageSend.position(xSend, ySend); 
     messageSend.size(buttonWidth, buttonHeight);
+    messageSend.style('font-size', fontSize + 'px');
     messageSend.mousePressed(sendData);
 
     NewMessage = createButton("New Message");
-    NewMessage.position(xSend, ySend + buttonHeight + 5 * windowHeight/1000);
+    NewMessage.position(xSend, ySend + buttonHeight + 5 * windowHeight / 1000);
     NewMessage.size(buttonWidth, buttonHeight);
+    NewMessage.style('font-size', fontSize + 'px');
     NewMessage.mousePressed(() => messageInput.value(""));
 }
 
