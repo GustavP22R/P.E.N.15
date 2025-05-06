@@ -1,3 +1,6 @@
+
+/*
+
 //RSA dependant variables
 //primes
 var p = 11
@@ -10,6 +13,9 @@ var n
 //private keys
 let phiN
 let d
+
+
+
 
 function calculateKeys ()
 {
@@ -146,3 +152,4 @@ function modInverse (a, m)
     }
     return result;
   }
+    */
