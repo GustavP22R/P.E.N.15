@@ -83,7 +83,7 @@ function drawFrontEnd() {
         rect(x, yTop, boxW, boxH, 30);
 
         fill(255);
-        rect(x + 10 * windowWidth * 0.0009, yTop + windowHeight * 0.12, boxW * windowWidth * 0.00068, boxH * windowHeight * 0.0009);
+        rect(x + 10 * windowWidth * 0.0009, yTop + windowHeight * 0.12, boxW * 0.88, boxH * 0.6);
 
         
         textAlign(CENTER, CENTER);
@@ -98,7 +98,7 @@ function drawFrontEnd() {
         rect(x, yBottom, boxW, boxH, 30);
 
         fill(255);
-        rect(x + 10 * windowWidth * 0.0009, yBottom + windowHeight * 0.12, boxW * windowWidth * 0.00068, boxH * windowHeight * 0.0009);
+        rect(x + 10 * windowWidth * 0.0009, yBottom + windowHeight * 0.12, boxW * 0.88,  boxH * 0.6);
 
         fill(255);
         textSize(16);
