@@ -44,7 +44,7 @@ function drawFrontEnd() {
 
     // Input Box (Left)
     let inputBoxX = windowWidth * 0.05;
-    let inputBoxY = 25;
+    let inputBoxY = windowHeight * 0.05 ;
     let inputBoxW = windowWidth * 0.2;
     let inputBoxH = windowHeight * 0.35;
 
@@ -58,7 +58,7 @@ function drawFrontEnd() {
     text("Send message\nbelow", inputBoxX + inputBoxW / 4, inputBoxY + 40);
 
     fill(131, 163, 163);
-    rect(inputBoxX - 20, inputBoxY * 13.2, inputBoxW + 30, inputBoxH, 30);
+    rect(inputBoxX - 20, inputBoxY * 10.5, inputBoxW + 30, inputBoxH, 30);
 
     // Dynamic Message Boxes
     let columnCount = 4;
@@ -83,7 +83,7 @@ function drawFrontEnd() {
         rect(x, yTop, boxW, boxH, 30);
 
         fill(255);
-        rect(x + 12, yTop + 80, boxW - 25, boxH - 90);
+        rect(x + 12, yTop + 80, boxW * windowWidth * 0.00068, boxH * windowHeight * 0.0009);
 
         
         textAlign(CENTER, CENTER);
@@ -98,7 +98,7 @@ function drawFrontEnd() {
         rect(x, yBottom, boxW, boxH, 30);
 
         fill(255);
-        rect(x + 12, yBottom + 80, boxW - 25, boxH - 90);
+        rect(x + 12, yBottom + 80, boxW - 25, boxH * windowHeight * 0.0009);
 
         fill(255);
         textSize(16);
