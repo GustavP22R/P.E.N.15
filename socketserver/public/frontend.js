@@ -86,7 +86,7 @@ function drawFrontEnd() {
         //Bottom left text
         textSize(12 * windowWidth/ 1300);
 
-        informationText = "This program showcases how cryptition\nworks utilising RSA and how Error Control\nCoding works using Hamming Code\n\nThe program allows you to send your own\nmessage and follow the progress of the \nalgorithm"
+        informationText = "This program showcases how encryption\nworks utilising RSA and how Error Control\nCoding works using Hamming Code\n\nThe program allows you to send your own\nmessage and follow the progress of the \nalgorithm"
 
         textAlign(LEFT);
         text(informationText, inputBoxX + inputBoxW  / 10000, inputBoxY + windowHeight *0.65);
