@@ -19,14 +19,15 @@ function newConnection(socket){
     console.log('new connection: ' + socket.id);
 
     socket.on('mouse' , mouseMsg);
-    socket.on('key', keyExchangeMsg)
+    socket.on('message', Msg)
+    socket.broadcast.emit('user-joined', { id: socket.id });
 
     function mouseMsg(data){
         socket.broadcast.emit('mouse' , data);
         console.log(data);
     }
-    function keyExchangeMsg(publicK){
-        socket.broadcast.emit('key' , publicK);
-        console.log(publicK);
+    function Msg(m){
+        socket.broadcast.emit('message' , m);
+        console.log(m);
     }
 }

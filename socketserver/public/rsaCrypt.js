@@ -10,6 +10,7 @@ async function generateRSAKeyPair() {
       ["encrypt", "decrypt"]
     );
     privateKey = keyPair.privateKey;
+    publicKey = keyPair.publicKey
     console.log("RSA Key Pair Generated");
   }
   
@@ -18,7 +19,7 @@ async function generateRSAKeyPair() {
     const encodedMessage = new TextEncoder().encode(message);
     const encryptedMessage = await window.crypto.subtle.encrypt(
       { name: "RSA-OAEP" },
-      publicKey,
+      UsedPublicKey,
       encodedMessage
     );
     return encryptedMessage;
@@ -40,3 +41,28 @@ async function generateRSAKeyPair() {
     return b64;
   }
   
+  async function importRsaPublicKey(base64Key) {
+    // 1. Decode base64 to binary string
+    const binaryDerString = atob(base64Key);
+  
+    // 2. Convert binary string to Uint8Array
+    const binaryDer = new Uint8Array([...binaryDerString].map(char => char.charCodeAt(0)));
+  
+    // 3. Import the key using Web Crypto API
+    return await crypto.subtle.importKey(
+      "spki",                     // format for public RSA keys
+      binaryDer.buffer,          // key data
+      {
+        name: "RSA-OAEP",
+        hash: "SHA-256"
+      },
+      true,                       // extractable
+      ["encrypt"]                 // key usages
+    );
+  }
+
+async function exchangeKeys(pKey) 
+{
+  const RSAkey = await exportPublicKeyToBase64(pKey); // Wait for key to be exported
+  socket.emit('mouse',RSAkey) // send as base64 for transport)
+}

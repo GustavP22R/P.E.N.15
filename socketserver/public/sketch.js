@@ -1,7 +1,11 @@
+var RecievedPublicKey = new ArrayBuffer()
+
 var socket;
 var recievedMessage
 var data2
 var dataSend
+
+var recievedMessages = []
 
 
 //Input and message positions
@@ -34,16 +38,27 @@ function setup() {
   //connects to localhost
   socket = io.connect('http://localhost:3000');
   socket.on('mouse', NewDrawing);
-  socket.on('key', NewDrawing)
+  socket.on('user-joined', initializeRSA)
+  socket.on('message', messageRecieved)
   setupFrontEnd()
-
+  
 }
 
-function NewDrawing(data){
-  recievedMessage = data.message
+async function messageRecieved(m)
+{
+  plainText = await decryptMessage(m)
+  console.log(plainText)
+  recievedMessages.push(String(plainText))
+}
 
+async function NewDrawing(data)
+{
+  RecievedPublicKey = data
+  UsedPublicKey = await importRsaPublicKey(RecievedPublicKey)
+  console.log(RecievedPublicKey)
 }
 function draw() {  
+ 
   //Background design
   background(3, 22, 52);
   drawFrontEnd()
@@ -68,17 +83,18 @@ async function sendData()
 
 }
 
-async function emitData() {
-  await generateRSAKeyPair(); // Wait for keys to be generated
-  await exchangeKeys(publicKey)
-  const encrypted = await encryptMessage(messageInput.value());
-  
+async function initializeRSA() 
+{
+  await generateRSAKeyPair();
+  await exchangeKeys(publicKey) 
+}
 
+async function emitData() 
+{
+
+  const encrypted = await encryptMessage(messageInput.value());
+  socket.emit('message', encrypted)
   console.log("Encrypted Message:", encrypted);
 
 }
 
-async function exchangeKeys(pKey) {
-  const RSAkey = await exportPublicKeyToBase64(pKey); // Wait for key to be exported
-  socket.emit('key', RSAkey) // send as base64 for transport)
-}
