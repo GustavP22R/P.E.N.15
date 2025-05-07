@@ -5,8 +5,16 @@ var recievedMessage
 var data2
 var dataSend
 
+//arrays containing the messages sent and received
+var sentMessages = []
+var sentEncryptedMessages = []
+
+
+var recievedEncryptionMessages = []
 var recievedMessages = []
 
+
+var sent
 
 //Input and message positions
 xInput = 50;
@@ -46,6 +54,7 @@ function setup() {
 
 async function messageRecieved(m)
 {
+  recievedEncryptionMessages.push(String(m))
   plainText = await decryptMessage(m)
   console.log(plainText)
   recievedMessages.push(String(plainText))
@@ -91,8 +100,9 @@ async function initializeRSA()
 
 async function emitData() 
 {
-
+  sentMessages.push(String(messageInput.value()))
   const encrypted = await encryptMessage(messageInput.value());
+  sentEncryptedMessages.push(String(encrypted))
   socket.emit('message', encrypted)
   console.log("Encrypted Message:", encrypted);
 
