@@ -18,6 +18,7 @@ function setupFrontEnd() {
     //Input area
     messageInput = createElement('textarea');
     messageInput.attribute('placeholder', 'Message here');
+    messageInput.attribute('maxlength', '31'); 
     messageInput.position(inputX, inputY);
     messageInput.size(inputWidth, inputHeight);
 
@@ -137,5 +138,35 @@ function drawFrontEnd() {
         text(labelBottom[i], x + boxW / 2, yBottom + windowHeight * 0.06);
     }
 
-    // Optional: Add outlines or hover effects here if needed
+    //SentMessages
+    textStyle(NORMAL);
+    textWrap(WORD);
+    textAlign(LEFT);
+    fill(0);
+    textSize(9 * windowWidth / 1300);
+    for(let i = 0; i < sentMessages.length; i++)
+        {
+            text(String(sentMessages[i]), inputBoxX + inputBoxW * 1.22, inputBoxY + i * 10 + windowHeight * 0.14, 150);
+        }
+      
+    //ECC
+
+    //Encrypted
+    for(let i = 0; i < sentEncryptedMessages.length; i++)
+    {
+        text(String(sentEncryptedMessages[i]), inputBoxX + inputBoxW * 2.92, inputBoxY + i * 10 + windowHeight * 0.14, 100);
+    }
+
+    
+    //RecievedMessages
+    for(let i = 0; i < recievedMessages.length; i++)
+        {
+            text(String(recievedMessages[i]), inputBoxX + inputBoxW * 1.22, inputBoxY + i * 20 + windowHeight *0.62, 100); 
+        } 
+
+    //recievedEncryptionMessages
+    for(let i = 0; i < recievedEncryptionMessages.length; i++)
+        {
+            text(String(recievedEncryptionMessages[i]), inputBoxX + inputBoxW * 2.92, inputBoxY + i * 20 + windowHeight *0.62 ); 
+        }
 }
