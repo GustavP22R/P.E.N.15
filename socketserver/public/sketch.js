@@ -73,38 +73,3 @@ function draw() {
   drawFrontEnd()
   //text(recievedMessage ,10, 10)
 }
-
-async function sendData()
-{
-  generateRSAKeyPair().then(() => {
-    const message = String(messageInput.value());
-    console.log("Original Message:", message);
-
-    encryptMessage(message).then(encrypted => {
-      
-
-      decryptMessage(encrypted).then(decrypted => {
-        console.log("Decrypted Message:", decrypted);
-      });
-    });
-  });
-
-
-}
-
-async function initializeRSA() 
-{
-  await generateRSAKeyPair();
-  await exchangeKeys(publicKey) 
-}
-
-async function emitData() 
-{
-  sentMessages.push(String(messageInput.value()))
-  const encrypted = await encryptMessage(messageInput.value());
-  sentEncryptedMessages.push(String(encrypted))
-  socket.emit('message', encrypted)
-  console.log("Encrypted Message:", encrypted);
-
-}
-

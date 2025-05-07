@@ -66,3 +66,19 @@ async function exchangeKeys(pKey)
   const RSAkey = await exportPublicKeyToBase64(pKey); // Wait for key to be exported
   socket.emit('mouse',RSAkey) // send as base64 for transport)
 }
+
+async function initializeRSA() 
+{
+  await generateRSAKeyPair();
+  await exchangeKeys(publicKey) 
+}
+
+async function emitData() 
+{
+  sentMessages.push(String(messageInput.value()))
+  const encrypted = await encryptMessage(messageInput.value());
+  sentEncryptedMessages.push(String(encrypted))
+  socket.emit('message', encrypted)
+  console.log("Encrypted Message:", encrypted);
+
+}
