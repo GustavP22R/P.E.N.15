@@ -148,12 +148,14 @@ function drawFrontEnd() {
     //ECC sent
 
     //Encrypted
-    text(String(sentEncryptedMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 100);
+    text(String(generateSHA256Bits(sentMessage)), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 100);
 
     //RecievedMessages
     text(String(recievedMessages), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight *0.70, 100); 
 
     //recievedEncryptionMessages
     text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 100 ); 
-
 }
+
+
+
