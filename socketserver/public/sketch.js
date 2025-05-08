@@ -6,12 +6,12 @@ var data2
 var dataSend
 
 //arrays containing the messages sent and received
-var sentMessages = []
-var sentEncryptedMessages = []
+var sentMessage = "";
+var sentEncryptedMessages = "";
 
 
-var recievedEncryptionMessages = []
-var recievedMessages = []
+var recievedEncryptionMessages = "";
+var recievedMessages = "";
 
 
 var sent
@@ -54,10 +54,10 @@ function setup() {
 
 async function messageRecieved(m)
 {
-  recievedEncryptionMessages.push(String(m))
+  recievedEncryptionMessages = (String(m))
   plainText = await decryptMessage(m)
   console.log(plainText)
-  recievedMessages.push(String(plainText))
+  recievedMessages = (String(plainText))
 }
 
 async function NewDrawing(data)

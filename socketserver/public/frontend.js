@@ -18,7 +18,7 @@ function setupFrontEnd() {
     //Input area
     messageInput = createElement('textarea');
     messageInput.attribute('placeholder', 'Message here');
-    messageInput.attribute('maxlength', '31'); 
+    messageInput.attribute('maxlength', '193'); 
     messageInput.position(inputX, inputY);
     messageInput.size(inputWidth, inputHeight);
 
@@ -140,33 +140,20 @@ function drawFrontEnd() {
 
     //SentMessages
     textStyle(NORMAL);
-    textWrap(WORD);
     textAlign(LEFT);
     fill(0);
-    textSize(9 * windowWidth / 1300);
-    for(let i = 0; i < sentMessages.length; i++)
-        {
-            text(String(sentMessages[i]), inputBoxX + inputBoxW * 1.22, inputBoxY + i * 10 + windowHeight * 0.14, 150);
-        }
+    textSize(12 * windowWidth / 1300);
+     text(String(sentMessage), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight * 0.23,150);
       
-    //ECC
+    //ECC sent
 
     //Encrypted
-    for(let i = 0; i < sentEncryptedMessages.length; i++)
-    {
-        text(String(sentEncryptedMessages[i]), inputBoxX + inputBoxW * 2.92, inputBoxY + i * 10 + windowHeight * 0.14, 100);
-    }
+    text(String(sentEncryptedMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 100);
 
-    
     //RecievedMessages
-    for(let i = 0; i < recievedMessages.length; i++)
-        {
-            text(String(recievedMessages[i]), inputBoxX + inputBoxW * 1.22, inputBoxY + i * 20 + windowHeight *0.62, 100); 
-        } 
+    text(String(recievedMessages), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight *0.70, 100); 
 
     //recievedEncryptionMessages
-    for(let i = 0; i < recievedEncryptionMessages.length; i++)
-        {
-            text(String(recievedEncryptionMessages[i]), inputBoxX + inputBoxW * 2.92, inputBoxY + i * 20 + windowHeight *0.62 ); 
-        }
+    text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 100 ); 
+
 }

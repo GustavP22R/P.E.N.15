@@ -75,9 +75,9 @@ async function initializeRSA()
 
 async function emitData() 
 {
-  sentMessages.push(String(messageInput.value()))
+  sentMessage = String(messageInput.value());
   const encrypted = await encryptMessage(messageInput.value());
-  sentEncryptedMessages.push(String(encrypted))
+  sentEncryptedMessages = (String(encrypted));  
   socket.emit('message', encrypted)
   console.log("Encrypted Message:", encrypted);
 
