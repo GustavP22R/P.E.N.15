@@ -9,6 +9,8 @@ var dataSend
 var sentMessage = "";
 var sentEncryptedMessages = "";
 
+var hammingEncoded = "";
+var hammingDecoded = "";
 
 var recievedEncryptionMessages = "";
 var recievedMessages = "";
