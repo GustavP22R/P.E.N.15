@@ -13,7 +13,6 @@ var sentEncryptedMessages = "";
 var recievedEncryptionMessages = "";
 var recievedMessages = "";
 
-
 var sent
 
 //Input and message positions
@@ -28,20 +27,15 @@ xMessageBox = xInput - 5;
 
 XInsertMessage = xInput - 6;
 
+
 function preload()
 {
   
 }
 
 function setup() {
-  
-
-
   createCanvas(windowWidth - 30, windowHeight - 30);
   background(50);
-
-
-
 
   //connects to localhost
   socket = io.connect('http://localhost:3000');
@@ -49,15 +43,28 @@ function setup() {
   socket.on('user-joined', initializeRSA)
   socket.on('message', messageRecieved)
   setupFrontEnd()
-  
 }
 
 async function messageRecieved(m)
 {
   recievedEncryptionMessages = (String(m))
-  plainText = await decryptMessage(m)
-  console.log(plainText)
-  recievedMessages = (String(plainText))
+
+  const decryptedString = await decryptMessage(m);
+
+  // Convert string to binary
+  const binaryString = [...decryptedString]
+  .map(c => c.charCodeAt(0).toString(2).padStart(8, '0'))
+  .join('');
+
+  // Decode Hamming
+  const hammingDecoded = hammingCode.decode(binaryString);
+
+  // Convert binary string back to readable message
+  const message = hammingDecoded.match(/.{1,8}/g)
+    .map(b => String.fromCharCode(parseInt(b, 2)))
+    .join('');
+
+    recievedMessages = message;
 }
 
 async function NewDrawing(data)
