@@ -10,7 +10,7 @@ var sentMessages = []
 var sentEncryptedMessages = []
 
 
-var recievedEncryptionMessages = ["2","4"]
+var recievedEncryptionMessages = []
 var recievedMessages = []
 
 
