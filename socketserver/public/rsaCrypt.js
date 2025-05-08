@@ -92,6 +92,6 @@ async function emitData()
   const encrypted = await encryptMessage(messageInput.value());
   sentEncryptedMessages = (String(encrypted));  
   socket.emit('message', encrypted)
-  console.log("Encrypted Message:", encrypted);
+  console.log("Encrypted Message", encrypted);
 
 }
