@@ -76,6 +76,19 @@ async function initializeRSA()
 async function emitData() 
 {
   sentMessage = String(messageInput.value());
+  
+  // Convert message to binary string
+  const binaryMessage = [...sentMessage]
+    .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
+    .join('');
+
+  // Apply Hamming encoding
+  const hammingEncoded = hammingCode.encode(binaryMessage);
+
+  // Convert binary string to a string (optional: base64 or ASCII safe format)
+  const byteArray = hammingEncoded.match(/.{1,8}/g).map(b => parseInt(b, 2));
+  const encodedString = String.fromCharCode(...byteArray);
+
   const encrypted = await encryptMessage(messageInput.value());
   sentEncryptedMessages = (String(encrypted));  
   socket.emit('message', encrypted)

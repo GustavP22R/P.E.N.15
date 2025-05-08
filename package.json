@@ -2,7 +2,8 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "express": "^5.1.0",
-    "js-crypto-rsa": "^1.0.7",
+    "hamming-code": "^0.0.2",
+    "js-crypto-rsa": "^0.5.3",
     "socket.io-client": "^4.8.1"
   }
 }

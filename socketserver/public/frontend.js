@@ -146,6 +146,7 @@ function drawFrontEnd() {
      text(String(sentMessage), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight * 0.23,150);
       
     //ECC sent
+    text(String(hammingEncoded), inputBoxX + inputBoxW * 2.06, inputBoxY + windowHeight * 0.23, 100);
 
     //Encrypted
     text(String(sentEncryptedMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 100);
@@ -153,7 +154,11 @@ function drawFrontEnd() {
     //RecievedMessages
     text(String(recievedMessages), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight *0.70, 100); 
 
+    //ECC recieved
+    text(String(hammingDecoded), inputBoxX + inputBoxW * 2.06, inputBoxY + windowHeight * 0.70, 100);
+
     //recievedEncryptionMessages
     text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 100 ); 
+
 
 }
