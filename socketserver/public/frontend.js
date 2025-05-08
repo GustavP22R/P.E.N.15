@@ -149,7 +149,7 @@ function drawFrontEnd() {
     text(String(hammingEncoded), inputBoxX + inputBoxW * 2.06, inputBoxY + windowHeight * 0.23, 100);
 
     //Encrypted
-    text(String(generateSHA256Bits(sentMessage)), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 100);
+    text(String(sentEncryptedMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 100);
 
     //RecievedMessages
     text(String(recievedMessages), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight *0.70, 100); 
@@ -159,7 +159,6 @@ function drawFrontEnd() {
 
     //recievedEncryptionMessages
     text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 100 ); 
+
+
 }
-
-
-
