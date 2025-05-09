@@ -73,12 +73,48 @@ async function initializeRSA()
   await exchangeKeys(publicKey) 
 }
 
-async function emitData() 
-{
-  sentMessages.push(String(messageInput.value()))
-  const encrypted = await encryptMessage(messageInput.value());
-  sentEncryptedMessages.push(String(encrypted))
-  socket.emit('message', encrypted)
-  console.log("Encrypted Message:", encrypted);
+async function emitData() {
+  sentMessage = messageInput.value();
 
+  // 1. Generér SHA-256-baseret 100.000.000-bit repræsentation
+  hammingEncoded = await generateSHA256Bits(sentMessage);
+
+  // (valgfrit) Log et lille udsnit
+  console.log("SHA-256 bits (første 256):", hammingEncoded.slice(0, 256));
+
+  // 2. Krypter SHA-256-bitstrengen med RSA
+  const encoder = new TextEncoder();
+  const dataToEncrypt = encoder.encode(hammingEncoded); // konverter til bytes
+
+  const encrypted = await window.crypto.subtle.encrypt(
+      {
+          name: "RSA-OAEP"
+      },
+      UsedPublicKey,
+      dataToEncrypt
+  );
+
+  // Gem som base64 til visning/sending
+  sentEncryptedMessages = btoa(String.fromCharCode(...new Uint8Array(encrypted)));
+
+  // 3. Send over socket
+  socket.emit('message', sentEncryptedMessages);
+}
+
+async function generateSHA256Bits(inputMessage) {
+  const encoder = new TextEncoder();
+  let resultBits = '';
+  let counter = 0;
+
+  while (resultBits.length < 100000000) {
+      const msg = inputMessage + counter;
+      const data = encoder.encode(msg);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashBits = hashArray.map(b => b.toString(2).padStart(8, '0')).join('');
+      resultBits += hashBits;
+      counter++;
+  }
+
+  return resultBits.slice(0, 100000000);
 }
