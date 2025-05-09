@@ -1,7 +1,7 @@
 var RecievedPublicKey = new ArrayBuffer()
 
 var socket;
-
+var UsedPublicKey
 
 //arrays containing the messages sent and received
 var sentMessage = "";
