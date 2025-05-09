@@ -1,9 +1,7 @@
 var RecievedPublicKey = new ArrayBuffer()
 
 var socket;
-var recievedMessage
-var data2
-var dataSend
+
 
 //arrays containing the messages sent and received
 var sentMessage = "";
@@ -16,8 +14,6 @@ var hammingDecoded = "";
 
 var recievedEncryptionMessages = "";
 var recievedMessages = "";
-
-var sent
 
 //Input and message positions
 xInput = 50;
@@ -65,19 +61,6 @@ async function messageRecieved(m) {
    // Decrypt the message
    const decryptedString = await decryptMessage(encryptedMessage);
    const MessageHamming = await decryptMessage(encryptedHamming)
-    //console.log("Decrypted message: " + String(decryptedString))
-   // Convert string to binary (optional: depends on your Hamming decoding step)
-  //  const binaryString =    [...decryptedString]
-  //     .map(c => c.charCodeAt(0).toString(2).padStart(8, '0'))
-  //     .join('');
-
-   // Decode Hamming
-   //const hammingDecoded = await hammingCode.decode(binaryString);  // Hamming decode
-
-   // Convert binary string back to readable message
-  //  const message = await hammingDecoded.match(/.{1,8}/g)
-  //     .map(b => String.fromCharCode(parseInt(b, 2)))
-  //     .join('');
 
    recievedMessages = decryptedString; // Store the decrypted message
    hammingDecoded = MessageHamming
@@ -109,7 +92,7 @@ function draw() {
   //Background design
   background(3, 22, 52);
   drawFrontEnd()
-  //text(recievedMessage ,10, 10)
+
 }
 
 
@@ -191,8 +174,8 @@ async function decryptMessage(encryptedMessage) {
 
 async function exchangeKeys(pKey) 
 {
-  const RSAkey = await exportPublicKeyToBase64(pKey); // Wait for key to be exported
-  socket.emit('mouse',RSAkey) // send as base64 for transport)
+  const RSAkey = await exportPublicKeyToBase64(pKey);
+  socket.emit('mouse',RSAkey)
 }
 
 async function initializeRSA() 
@@ -382,9 +365,6 @@ function chunk(arr, size) {
         // AMD.
         define(factory);
     } else if (typeof module === 'object' && module.exports) {
-        // Node. Does not work with strict CommonJS, but
-        // only CommonJS-like environments that support module.exports,
-        // like Node.
         module.exports = factory();
     } else {
         // Browser globals (root is window)
@@ -608,7 +588,11 @@ function drawFrontEnd() {
     text(String(recievedMessages), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight *0.70, 100); 
 
     //ECC recieved
+    
+    textWrap(CHAR)
+    textSize(8 * windowWidth / 1300)
     text(String(hammingDecoded), inputBoxX + inputBoxW * 2.06, inputBoxY + windowHeight * 0.70, 100);
+    
 
     //recievedEncryptionMessages
     push()
