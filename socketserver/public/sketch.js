@@ -27,13 +27,8 @@ xMessageBox = xInput - 5;
 
 XInsertMessage = xInput - 6;
 
-
-function preload()
+function setup() 
 {
-  
-}
-
-function setup() {
   createCanvas(windowWidth - 30, windowHeight - 30);
   background(50);
 
@@ -45,14 +40,8 @@ function setup() {
   setupFrontEnd()
 }
 
-
-function bufferToHex(buffer) {
-  return [...new Uint8Array(buffer)]
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-async function messageRecieved(m) {
+async function messageRecieved(m) 
+{
    recievedEncryptionMessages = String(m.message);
 
    // Decode the base64 encrypted message back into an ArrayBuffer
@@ -100,7 +89,8 @@ function draw() {
 // RSA CRYPT: JS
 let publicKey, privateKey;  // Declare the public and private key globally
 
-async function generateRSAKeyPair() {
+async function generateRSAKeyPair() 
+{
   const keyPair = await window.crypto.subtle.generateKey(
     {
       name: "RSA-OAEP",
@@ -119,7 +109,8 @@ async function generateRSAKeyPair() {
   
 
   
-  function arrayBufferToBase64(buffer) {
+  function arrayBufferToBase64(buffer) 
+  {
     let binary = '';
     let bytes = new Uint8Array(buffer);
     let length = bytes.byteLength;
@@ -134,7 +125,8 @@ async function generateRSAKeyPair() {
   
 
  // Decryption function
-async function decryptMessage(encryptedMessage) {
+async function decryptMessage(encryptedMessage) 
+{
   const decryptedMessage = await window.crypto.subtle.decrypt(
     { name: "RSA-OAEP" },
     privateKey,
@@ -146,13 +138,15 @@ async function decryptMessage(encryptedMessage) {
 }
 
 
-  async function exportPublicKeyToBase64(publicKey) {
+  async function exportPublicKeyToBase64(publicKey) 
+  {
     const spki = await crypto.subtle.exportKey("spki", publicKey);
     const b64 = btoa(String.fromCharCode(...new Uint8Array(spki)));
     return b64;
   }
   
-  async function importRsaPublicKey(base64Key) {
+  async function importRsaPublicKey(base64Key) 
+  {
     // 1. Decode base64 to binary string
     const binaryDerString = atob(base64Key);
   
@@ -184,7 +178,8 @@ async function initializeRSA()
   await exchangeKeys(publicKey) 
 }
 
-function stringToBinary(str) {
+function stringToBinary(str) 
+{
   return str.split('')   // Split the string into an array of characters
       .map(char => char.charCodeAt(0).toString(2).padStart(8, '0')) // Convert each char to binary with 8 bits
       .join(''); // Join all the binary strings into one continuous string
@@ -195,7 +190,8 @@ function stringToBinary(str) {
  * @param {String} input - binary string, '10101'
  * @returns {String} - encoded binary string
  */
-function hammingEncode(input) {
+function hammingEncode(input) 
+{
 	if (typeof input !== 'string' || input.match(/[^10]/)) {
 		return console.error('hamming-code error: input should be binary string, for example "101010"');
 	}
@@ -237,7 +233,8 @@ function hammingEncode(input) {
  * @param {String} input - binary string, '10101'
  * @returns {String} - decoded binary string
  */
-function hammingPureDecode(input) {
+function hammingPureDecode(input) 
+{
 	if (typeof input !== 'string' || input.match(/[^10]/)) {
 		return console.error('hamming-code error: input should be binary string, for example "101010"');
 	}
@@ -262,11 +259,11 @@ function hammingPureDecode(input) {
 }
 
 /**
- * hammingDecode - decodes encoded binary string, also try to correct errors
  * @param {String} input - binary string, '10101'
  * @returns {String} - decoded binary string
  */
-function hammingDecode(input) {
+function hammingDecode(input) 
+{
 	if (typeof input !== 'string' || input.match(/[^10]/)) {
 		return console.error('hamming-code error: input should be binary string, for example "101010"');
 	}
@@ -279,18 +276,21 @@ function hammingDecode(input) {
 	var inputFixed = hammingEncode(output);
 
 
-	while (l / i >= 1) {
+	while (l / i >= 1) 
+  {
 		controlBitsIndexes.push(i);
 		i *= 2;
 	}
 
 	controlBitsIndexes.forEach(function (i) {
-		if (input[i] !== inputFixed[i]) {
+		if (input[i] !== inputFixed[i]) 
+    {
 			sum += i;
 		}
 	});
 
-	if (sum) {
+	if (sum) 
+  {
 		output[sum - 1] === '1' 
 			? output = replaceCharacterAt(output, sum - 1, '0')
 			: output = replaceCharacterAt(output, sum - 1, '1');
@@ -299,12 +299,13 @@ function hammingDecode(input) {
 }
 
 /**
- * hammingCheck - check if encoded binary string has errors, returns true if contains error
- * @param {String} input - binary string, '10101'
- * @returns {Boolean} - hasError
+ * @param {String} input
+ * @returns {Boolean}
  */
-function hammingCheck(input) {
-	if (typeof input !== 'string' || input.match(/[^10]/)) {
+function hammingCheck(input) 
+{
+	if (typeof input !== 'string' || input.match(/[^10]/)) 
+  {
 		return console.error('hamming-code error: input should be binary string, for example "101010"');
 	}
 
@@ -320,15 +321,15 @@ function hammingCheck(input) {
  * @param {String} character - character 
  * @returns {String} - string
  */
-function replaceCharacterAt(str, index, character) {
+function replaceCharacterAt(str, index, character) 
+{
   return str.substr(0, index) + character + str.substr(index+character.length);
 }
 
 /**
- * chunk - split array into chunks
- * @param {Array} arr - array
- * @param {Number} size - chunk size
- * @returns {Array} - chunked array
+ * @param {Array} arr
+ * @param {Number} size
+ * @returns {Array}
  */
 function chunk(arr, size) {
 	var chunks = [],
@@ -341,7 +342,8 @@ function chunk(arr, size) {
 }
 
 
-(function (root, factory) {
+(function (root, factory) 
+{
     if (typeof define === 'function' && define.amd) {
         // AMD.
         define(factory);
@@ -364,7 +366,8 @@ function chunk(arr, size) {
 // FRONTEND : JS
 let messageInput, messageSend, NewMessage;
 
-function setupFrontEnd() {
+function setupFrontEnd() 
+{
     // Remove previous elements if they exist
     if (messageInput) messageInput.remove();
     if (messageSend) messageSend.remove();
@@ -408,7 +411,8 @@ function setupFrontEnd() {
     NewMessage.mousePressed(() => messageInput.value(""));
 }
 
-async function emitData() {
+async function emitData() 
+{
     await initializeRSA();  // Ensure RSA is initialized before emitting data
   
     // Get the message from the input field
@@ -436,12 +440,14 @@ async function emitData() {
   }
   
 
-function windowResized() {
+function windowResized() 
+{
     resizeCanvas(windowWidth, windowHeight);
     setupFrontEnd(); // Recalculate sizes/positions
 }
 
-async function encryptMessage(message) {
+async function encryptMessage(message) 
+{
     const encodedMessage = new TextEncoder().encode(message);
   
     // Use 'publicKey' instead of 'UsedPublicKey'
@@ -456,7 +462,8 @@ async function encryptMessage(message) {
     return base64EncryptedMessage; // Return the base64 string
   }
 
-function drawFrontEnd() {
+function drawFrontEnd() 
+{
     background(3, 22, 52);
 
     // Background Panels
@@ -511,7 +518,8 @@ function drawFrontEnd() {
     textSize(16  * windowWidth/ 1300);
     textStyle(NORMAL);
 
-    for (let i = 0; i < columnCount; i++) {
+    for (let i = 0; i < columnCount; i++) 
+      {
         let x = startX + i * (boxW + gap);
         let yTop = inputBoxY;
         let yBottom = windowHeight / 1.9;
@@ -542,7 +550,7 @@ function drawFrontEnd() {
         textStyle(BOLD);
         textAlign(CENTER, CENTER);
         text(labelBottom[i], x + boxW / 2, yBottom + windowHeight * 0.06);
-    }
+      }
 
     //SentMessages
     textStyle(NORMAL);
@@ -584,13 +592,13 @@ function drawFrontEnd() {
     push()
     textWrap(CHAR)
     textSize(8 * windowWidth / 1300)
-    text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 100 ); 
+    text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 150 ); 
     pop()
 
-    //recievedEncryptionMessages
+    //recievedCompleteMessage
     push()
     textWrap(CHAR)
     textSize(8 * windowWidth / 1300)
-    text(String(recievedEncryptionMessages) + String(hammingDecoded), inputBoxX + inputBoxW * 3.77, inputBoxY + windowHeight * 0.70, 100 ); 
+    text(String(recievedEncryptionMessages) + String(hammingDecoded), inputBoxX + inputBoxW * 3.77, inputBoxY + windowHeight * 0.70, 150 ); 
     pop()
 }
