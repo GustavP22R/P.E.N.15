@@ -59,7 +59,7 @@ async function messageRecieved(m) {
    const encryptedMessage = base64ToArrayBuffer(m.message);
    const encryptedHamming = base64ToArrayBuffer(m.hamming)
    // Decrypt the message
-   const decryptedString = await decryptMessage(encryptedMessage);
+   const decryptedString = await decryptMessage(encryptedMessage)
    const MessageHamming = await decryptMessage(encryptedHamming)
 
    recievedMessages = decryptedString; // Store the decrypted message
@@ -182,25 +182,6 @@ async function initializeRSA()
 {
   await generateRSAKeyPair();
   await exchangeKeys(publicKey) 
-}
-
-
-async function generateSHA256Bits(inputMessage) {
-  const encoder = new TextEncoder();
-  let resultBits = '';
-  let counter = 0;
-
-  while (resultBits.length < 100000000) {
-      const msg = inputMessage + counter;
-      const data = encoder.encode(msg);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashBits = hashArray.map(b => b.toString(2).padStart(8, '0')).join('');
-      resultBits += hashBits;
-      counter++;
-  }
-
-  return resultBits.slice(0, 100000000);
 }
 
 function stringToBinary(str) {
@@ -584,20 +565,32 @@ function drawFrontEnd() {
     text(String(sentEncryptedMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.23, 150);   
     pop()
 
+    //Final message sent
+    push()
+    textWrap(CHAR)
+    textSize(8 * windowWidth / 1300)
+    text(String(sentEncryptedMessages) + String(binaryMessage), inputBoxX + inputBoxW * 3.77, inputBoxY + windowHeight * 0.23, 100 ); 
+    pop()
+
     //RecievedMessages
     text(String(recievedMessages), inputBoxX + inputBoxW * 1.22, inputBoxY + windowHeight *0.70, 100); 
 
     //ECC recieved
-    
     textWrap(CHAR)
     textSize(8 * windowWidth / 1300)
     text(String(hammingDecoded), inputBoxX + inputBoxW * 2.06, inputBoxY + windowHeight * 0.70, 100);
-    
 
     //recievedEncryptionMessages
     push()
     textWrap(CHAR)
     textSize(8 * windowWidth / 1300)
     text(String(recievedEncryptionMessages), inputBoxX + inputBoxW * 2.92, inputBoxY + windowHeight * 0.70, 100 ); 
+    pop()
+
+    //recievedEncryptionMessages
+    push()
+    textWrap(CHAR)
+    textSize(8 * windowWidth / 1300)
+    text(String(recievedEncryptionMessages) + String(hammingDecoded), inputBoxX + inputBoxW * 3.77, inputBoxY + windowHeight * 0.70, 100 ); 
     pop()
 }
