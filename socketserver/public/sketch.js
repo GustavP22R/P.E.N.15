@@ -57,18 +57,19 @@ function bufferToHex(buffer) {
 }
 
 async function messageRecieved(m) {
-   recievedEncryptionMessages = String(m);
+   recievedEncryptionMessages = String(m.message);
 
    // Decode the base64 encrypted message back into an ArrayBuffer
-   const encryptedMessage =  base64ToArrayBuffer(m);
-
+   const encryptedMessage = base64ToArrayBuffer(m.message);
+   const encryptedHamming = base64ToArrayBuffer(m.hamming)
    // Decrypt the message
    const decryptedString = await decryptMessage(encryptedMessage);
-
+   const MessageHamming = await decryptMessage(encryptedHamming)
+    //console.log("Decrypted message: " + String(decryptedString))
    // Convert string to binary (optional: depends on your Hamming decoding step)
-   const binaryString =    [...decryptedString]
-      .map(c => c.charCodeAt(0).toString(2).padStart(8, '0'))
-      .join('');
+  //  const binaryString =    [...decryptedString]
+  //     .map(c => c.charCodeAt(0).toString(2).padStart(8, '0'))
+  //     .join('');
 
    // Decode Hamming
    //const hammingDecoded = await hammingCode.decode(binaryString);  // Hamming decode
@@ -78,7 +79,8 @@ async function messageRecieved(m) {
   //     .map(b => String.fromCharCode(parseInt(b, 2)))
   //     .join('');
 
-   recievedMessages = await message; // Store the decrypted message
+   recievedMessages = decryptedString; // Store the decrypted message
+   hammingDecoded = MessageHamming
 }
 
 // Convert base64 string back to ArrayBuffer
@@ -452,17 +454,23 @@ async function emitData() {
     sentMessage = String(messageInput.value());
   
     // Convert the message to binary using the stringToBinary function
-    binaryMessage = stringToBinary(sentMessage);
+    binaryMessage = String(stringToBinary(sentMessage));
   
     // Hamming encode the binary message
     let hammingEncoded = hammingEncode(binaryMessage);  // Encode with Hamming
   
     // Now, encrypt the Hamming-encoded binary message
-    const encryptedBase64 = await encryptMessage(hammingEncoded);
+    const encryptedBase64 = await encryptMessage(String(sentMessage));
+    const encryptedHamming = await encryptMessage(String(hammingEncoded))
+    emitedData = {
+      message: encryptedBase64,
+      hamming: encryptedHamming
+    }
+
     sentEncryptedMessages = encryptedBase64;  // Store the base64 string
   
     // Send the encrypted base64 message to the server
-    socket.emit('message', encryptedBase64);
+    socket.emit('message', emitedData);
     console.log("Encrypted Base64 Message:", encryptedBase64);
   }
   
@@ -478,7 +486,7 @@ async function encryptMessage(message) {
     // Use 'publicKey' instead of 'UsedPublicKey'
     const encryptedMessage = await window.crypto.subtle.encrypt(
       { name: "RSA-OAEP" },
-      publicKey,  // Use the correct public key variable here
+      UsedPublicKey,  // Use the correct public key variable here
       encodedMessage
     );
   
