@@ -140,14 +140,16 @@ function drawFrontEnd() {
 
     //SentMessages
     textStyle(NORMAL);
-    textWrap(WORD);
+    //textWrap(WORD);
     textAlign(LEFT);
     fill(0);
     textSize(9 * windowWidth / 1300);
-    for(let i = 0; i < sentMessages.length; i++)
-        {
+    
+    for(let i=0; i<sentMessages.length; i++)
+          {  
             text(String(sentMessages[i]), inputBoxX + inputBoxW * 1.22, inputBoxY + i * 10 + windowHeight * 0.14, 150);
-        }
+          }
+        
       
     //ECC
 
